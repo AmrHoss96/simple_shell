@@ -11,11 +11,11 @@ int execute_builtin_command(char **args)
 	if (args[0] == NULL)
 	{
 		return (1);
-	} 
+	}
 	else if (strcmp(args[0], "exit") == 0)
 	{
 		return (0);
-	} 
+	}
 	else if (strcmp(args[0], "env") == 0)
 	{
 		while (*env)
