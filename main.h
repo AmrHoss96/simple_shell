@@ -17,8 +17,8 @@ void execmd(char **argv);
 char *get_location(char *command);
 char* read_line(void);
 char** tokenize_line(char* line);
-int execute_command(char** args);
+void execute_external_command(char **args);
 void free_tokens(char** tokens);
-
+int execute_builtin_command(char **args);
 
 #endif
