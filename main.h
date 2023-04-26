@@ -17,5 +17,6 @@ char** tokenize_line(char* line);
 void execute_external_command(char **args);
 void free_tokens(char** tokens);
 int execute_builtin_command(char **args);
+extern char **environ;
 
 #endif
