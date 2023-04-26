@@ -7,16 +7,9 @@ void free_tokens(char **tokens)
 {
 	int i;
 
-	for (i = 0; i < MAX_NUM_TOKENS; i++)
+	for (i = 0; tokens[i] != NULL; i++)
 	{
-		if (tokens[i] != NULL)
-		{
-			free(tokens[i]);
-		}
-		else
-		{
-			break;
-		}
+		free(tokens[i]);
 	}
 	free(tokens);
 }
