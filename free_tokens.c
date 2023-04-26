@@ -5,7 +5,9 @@
 */
 void free_tokens(char **tokens)
 {
-	for (int i = 0; i < MAX_NUM_TOKENS; i++)
+	int i;
+
+	for (i = 0; i < MAX_NUM_TOKENS; i++)
 	{
 		if (tokens[i] != NULL)
 		{
