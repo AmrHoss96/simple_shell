@@ -13,6 +13,8 @@
 #define MAX_NUM_TOKENS 64
 
 char *read_line(void);
+int is_builtin(char *command);
+char **parse_line(char *line);
 char **tokenize_line(char *line);
 void execute_external_command(char **args);
 void free_tokens(char **tokens);
