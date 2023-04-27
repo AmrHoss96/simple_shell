@@ -22,5 +22,5 @@ int main(void)
 		free_tokens(args);
 	} while (status);
 
-	return EXIT_SUCCESS;
+	return (EXIT_SUCCESS);
 }
