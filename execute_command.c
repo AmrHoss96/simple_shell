@@ -5,6 +5,7 @@
 */
 void execute_external_command(char **args)
 {
+	pid_t pid;
 	char *path = getenv("PATH");
 	char *token = strtok(path, ":");
 	char *full_path = malloc(MAX_INPUT_SIZE * sizeof(char));
@@ -14,7 +15,7 @@ void execute_external_command(char **args)
 		strcpy(full_path, token);
 		strcat(full_path, "/");
 		strcat(full_path, args[0]);
-		pid_t pid = fork();
+		pid = fork();
 		
 		if (access(full_path, X_OK) == 0)
 		{
