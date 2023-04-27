@@ -31,7 +31,6 @@ void execute_external_command(char **args)
 			else
 			{
 				waitpid(pid, NULL, 0);
-				free(full_path);
 				return;
 			}
 		}
