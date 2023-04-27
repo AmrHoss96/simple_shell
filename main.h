@@ -12,10 +12,10 @@
 #define MAX_TOKEN_SIZE 64
 #define MAX_NUM_TOKENS 64
 
-char* read_line(void);
-char** tokenize_line(char* line);
+char *read_line(void);
+char **tokenize_line(char *line);
 void execute_external_command(char **args);
-void free_tokens(char** tokens);
+void free_tokens(char **tokens);
 int execute_builtin_command(char **args);
 extern char **environ;
 
