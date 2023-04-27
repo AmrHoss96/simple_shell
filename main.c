@@ -5,13 +5,15 @@
 */
 int main(void)
 {
+	ssize_t line_length;
+	char **args;
 	char *line = NULL;
 	size_t line_size = 0;
 
 	while (1)
 	{
 		printf("simple_shell$ ");
-		ssize_t line_length = getline(&line, &line_size, stdin);
+		line_length = getline(&line, &line_size, stdin);
 
 		if (line_length < 0)
 		{
@@ -19,7 +21,7 @@ int main(void)
 			exit(EXIT_FAILURE);
 		}
 		line[line_length - 1] = '\0'; /* remove newline character */
-		char **args = parse_line(line);
+		args = parse_line(line);
 
 		if (args != NULL)
 		{

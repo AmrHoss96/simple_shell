@@ -6,6 +6,8 @@
 */
 char **parse_line(char *line)
 {
+	int i = 0;
+	char *token;
 	char **args = malloc(MAX_INPUT_SIZE * sizeof(char *));
 	
 	if (args == NULL)
@@ -14,9 +16,7 @@ char **parse_line(char *line)
 	exit(EXIT_FAILURE);
 	}
 
-	char *token = strtok(line, " ");
-	int i = 0;
-
+	token = strtok(line, " ");
 	while (token != NULL)
 	{
 		args[i] = token;
