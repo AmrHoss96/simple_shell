@@ -10,5 +10,6 @@
 #include <sys/wait.h>
 void execmd(char **argv);
 char *get_location(char *command);
-
+ssize_t read_line(char **lineptr, size_t *n);
+void run_shell();
 #endif

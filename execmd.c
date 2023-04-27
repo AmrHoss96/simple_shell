@@ -33,7 +33,9 @@ void execmd(char **argv)
 		}
 		else
 		{
+		/* parent process */
 		int status;
+
 		if (waitpid(pid, &status, 0) == -1)
 		{
 			perror("waitpid");
