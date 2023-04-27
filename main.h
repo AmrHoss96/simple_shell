@@ -7,18 +7,8 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/stat.h>
-#include <sys/wait.h>
-#define MAX_INPUT_SIZE 1024
-#define MAX_TOKEN_SIZE 64
-#define MAX_NUM_TOKENS 64
 
-char *read_line(void);
-int is_builtin(char *command);
-char **parse_line(char *line);
-char **tokenize_line(char *line);
-void execute_external_command(char **args);
-void free_tokens(char **tokens);
-int execute_builtin(char **args);
-extern char **environ;
+void execmd(char **argv);
+char *get_location(char *command);
 
 #endif
