@@ -17,7 +17,7 @@ void execute_external_command(char **args)
 		if (access(full_path, X_OK) == 0)
 		{
 			pid_t pid = fork();
-			
+
 			if (pid == 0)
 			{
 				execv(full_path, args);
