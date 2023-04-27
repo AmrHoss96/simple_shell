@@ -9,7 +9,7 @@ char **parse_line(char *line)
 	int i = 0;
 	char *token;
 	char **args = malloc(MAX_INPUT_SIZE * sizeof(char *));
-	
+
 	if (args == NULL)
 	{
 	perror("malloc failed");
