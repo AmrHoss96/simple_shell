@@ -5,40 +5,54 @@
 */
 void execute_external_command(char **args)
 {
-	pid_t pid;
-	char *path = getenv("PATH");
-	char *token = strtok(path, ":");
-	char *full_path = malloc(MAX_INPUT_SIZE * sizeof(char));
-
-	while (token != NULL)
+	char *path, *dir;
+	pid_t pid = fork();
+	if (pid == -1)
 	{
-		strcpy(full_path, token);
-		strcat(full_path, "/");
-		strcat(full_path, args[0]);
-		if (access(full_path, X_OK) == 0)
-		{
-			pid = fork();
-			if (pid == 0)
-			{
-			execv(full_path, args);
-			perror("execv failed");
-			exit(EXIT_FAILURE);
-			}
-			else if (pid < 0)
-			{
-			perror("fork failed");
-			exit(EXIT_FAILURE);
-			}
-			else
-			{
-			waitpid(pid, NULL, 0);
-			free(full_path);
-			return;
-			}
-		}
-	token = strtok(NULL, ":");
+		perror("fork");
+		return;
 	}
+	else if (pid == 0)
+	{
+		char *path_env = getenv("PATH");
+		if (path_env == NULL)
+		{
+		fprintf(stderr, "Error: PATH environment variable not set\n");
+		exit(EXIT_FAILURE);
+		}
 
-	free(full_path);
-	printf("%s: command not found\n", args[0]);
+		path = strdup(path_env);
+		dir = strtok(path, ":");
+
+		while (dir != NULL)
+		{
+		char *cmd_path = malloc(strlen(dir) + strlen(args[0]) + 2);
+		sprintf(cmd_path, "%s/%s", dir, args[0]);
+		execv(cmd_path, args);
+		free(cmd_path);
+		dir = strtok(NULL, ":");
+		}
+
+		fprintf(stderr, "%s: command not found\n", args[0]);
+		free(path);
+		exit(EXIT_FAILURE);
+	}
+	else
+	{
+		int status;
+		waitpid(pid, &status, 0);
+		if (WIFEXITED(status))
+		{
+		int exit_status = WEXITSTATUS(status);
+		if (exit_status != 0)
+		{
+			fprintf(stderr, "Command failed with exit code %d\n", exit_status);
+		}
+		}
+		else if (WIFSIGNALED(status))
+		{
+		int sig = WTERMSIG(status);
+		fprintf(stderr, "Command terminated by signal %d\n", sig);
+		}
+	}
 }

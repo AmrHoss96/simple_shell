@@ -5,23 +5,28 @@
 */
 int main(void)
 {
-	char **args;
 	char *line = NULL;
-	int status;
+	char **args;
 
 	while (1)
 	{
 		printf("simple_shell$ ");
 		line = read_line();
-		args = tokenize_line(line);
-		status = execute_builtin(args);
-		if (status)
+		args = parse_line(line);
+		if (args != NULL)
 		{
-			execute_external_command(args);
+			if (is_builtin(args[0]))
+			{
+				execute_builtin(args);
+			}
+			else
+			{
+				execute_external_command(args);
+			}
+			free(args);
 		}
 		free(line);
-		free(args);
+		line = NULL;
 	}
-
-	return (EXIT_SUCCESS);
+	return (0);
 }
