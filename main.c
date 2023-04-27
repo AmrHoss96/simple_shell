@@ -7,18 +7,20 @@ int main(void)
 {
 	char *line = NULL;
 	size_t line_size = 0;
-	char **args = parse_line(line);
-	ssize_t line_length = getline(&line, &line_size, stdin);
 
 	while (1)
 	{
 		printf("simple_shell$ ");
+		ssize_t line_length = getline(&line, &line_size, stdin);
+
 		if (line_length < 0)
 		{
 			perror("getline failed");
 			exit(EXIT_FAILURE);
 		}
-		line[line_length - 1] = '\0';
+		line[line_length - 1] = '\0'; /* remove newline character */
+		char **args = parse_line(line);
+
 		if (args != NULL)
 		{
 			if (is_builtin(args[0]))
