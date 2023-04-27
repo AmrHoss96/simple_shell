@@ -5,37 +5,23 @@
 */
 int main(void)
 {
-	ssize_t line_length;
 	char **args;
 	char *line = NULL;
-	size_t line_size = 0;
+	int status;
 
 	while (1)
 	{
 		printf("simple_shell$ ");
-		line_length = getline(&line, &line_size, stdin);
-
-		if (line_length < 0)
+		line = read_line();
+		args = tokenize_line(line);
+		status = execute_builtin(args);
+		if (status)
 		{
-			perror("getline failed");
-			exit(EXIT_FAILURE);
+			execute_external_command(args);
 		}
-		line[line_length - 1] = '\0'; /* remove newline character */
-		args = parse_line(line);
-
-		if (args != NULL)
-		{
-			if (is_builtin(args[0]))
-			{
-				execute_builtin(args);
-			}
-			else
-			{
-				execute_external_command(args);
-			}
-			free(args);
-		}
+		free(line);
+		free(args);
 	}
-	free(line);
-	return (0);
+
+	return (EXIT_SUCCESS);
 }

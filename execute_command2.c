@@ -2,21 +2,28 @@
 /**
  * execute_builtin - executes buildtin
  * @args: inputted arguments
+ * Return: 1
 */
-void execute_builtin(char **args)
+int execute_builtin(char **args)
 {
-	char **env = environ;
-
+	if (args[0] == NULL)
+	{
+		return (0);
+	}
 	if (strcmp(args[0], "exit") == 0)
 	{
-		exit(EXIT_SUCCESS);
+		return (0);
 	}
-	else if (strcmp(args[0], "env") == 0)
+	if (strcmp(args[0], "env") == 0)
 	{
-		while (*env)
+		char **env = environ;
+
+		while (*env != NULL)
 		{
 			printf("%s\n", *env);
 			env++;
 		}
+		return (1);
 	}
+	return (1);
 }
