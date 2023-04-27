@@ -6,5 +6,5 @@
 */
 int is_builtin(char *command)
 {
-	return (strcmp(command, "exit") == 0 || strcmp(command, "env") == 0);
+	return (strcmp(command, "exit") == 0 || strcmp(command, "env"));
 }
